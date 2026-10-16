@@ -1,0 +1,33 @@
+{
+  "classes": [
+    "10_centavos",
+    "1_real",
+    "25_centavos",
+    "50_centavos",
+    "5_centavos"
+  ],
+  "valores": [
+    "R$ 0,10",
+    "R$ 1,00",
+    "R$ 0,25",
+    "R$ 0,50",
+    "R$ 0,05"
+  ],
+  "tamanho_imagem": [
+    224,
+    224
+  ],
+  "media": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "desvio": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "preparo": "RGB e redimensionamento integral para 224x224",
+  "metodo": "Ajuste dos últimos quatro blocos e do classificador; variações de rotação, brilho, contraste e saturação.",
+  "semente": 42
+}
