@@ -1,4 +1,5 @@
 import json
+import time
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
@@ -488,16 +489,17 @@ class Aplicacao(ctk.CTk):
             max(1, int(self.imagem_original.height * proporcao)),
         )
 
-        self.imagem_previa = ctk.CTkImage(
+        nova_previa = ctk.CTkImage(
             light_image=self.imagem_original,
             dark_image=self.imagem_original,
             size=tamanho,
         )
 
-        self.previa.configure(
-            image=self.imagem_previa,
-            text="",
-        )
+        # Troca a imagem antes do texto e só depois descarta a
+        # anterior, para o rótulo nunca apontar para uma imagem apagada.
+        self.previa.configure(image=nova_previa)
+        self.previa.configure(text="")
+        self.imagem_previa = nova_previa
 
     def selecionar_imagem(self):
         caminho = filedialog.askopenfilename(
@@ -605,6 +607,10 @@ class Aplicacao(ctk.CTk):
         try:
             self.carregar_modelo()
 
+            # Mede só o trabalho do sistema: começa depois do
+            # carregamento do modelo e termina com o valor na tela.
+            inicio = time.perf_counter()
+
             entrada = self.preparo(
                 self.imagem_original.convert("RGB")
             ).unsqueeze(0)
@@ -624,7 +630,13 @@ class Aplicacao(ctk.CTk):
                 )
             )
 
-            print(f"Imagem: {self.nome_atual} | Previsão: {valor}")
+            self.update_idletasks()
+            tempo = time.perf_counter() - inicio
+
+            print(
+                f"Imagem: {self.nome_atual} | Previsão: {valor} "
+                f"| Tempo: {tempo:.3f} s"
+            )
 
         except Exception as erro:
             self.status.configure(text="ERRO NA ANÁLISE")
@@ -644,8 +656,11 @@ class Aplicacao(ctk.CTk):
         self.imagem_original = None
         self.nome_atual = None
 
+        # image="" (e não None) remove de fato a imagem do rótulo.
+        # Com None, o rótulo continuaria apontando para a imagem
+        # antiga, que é apagada da memória na linha seguinte.
         self.previa.configure(
-            image=None,
+            image="",
             text="Sua imagem aparecerá aqui\n\nFormatos JPG e PNG",
         )
         self.imagem_previa = None
