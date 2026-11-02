@@ -1,0 +1,48 @@
+{
+  "version": "7.9.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "moeda",
+      "points": [
+        [
+          134.5,
+          373.0
+        ],
+        [
+          164.0,
+          354.5
+        ],
+        [
+          211.5,
+          378.5
+        ],
+        [
+          211.5,
+          431.5
+        ],
+        [
+          168.0,
+          454.0
+        ],
+        [
+          119.5,
+          432.0
+        ],
+        [
+          122.5,
+          394.5
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "100_1477154466.jpg",
+  "imageData": null,
+  "imageHeight": 480,
+  "imageWidth": 640
+}
