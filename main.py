@@ -13,7 +13,7 @@ from torchvision import models, transforms
 
 
 PROJETO = Path(__file__).resolve().parent
-PASTA_MODELO = PROJETO / "modelo"
+PASTA_MODELO = PROJETO / "modelo_ajustado"
 PREFERENCIAS = PROJETO / "preferencias_interface.json"
 
 ctk.set_appearance_mode("light")

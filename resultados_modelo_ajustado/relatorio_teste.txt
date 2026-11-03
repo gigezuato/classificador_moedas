@@ -1,0 +1,18 @@
+AVALIAÇÃO DO MODELO NO CONJUNTO DE TESTE
+
+Total de imagens: 462
+Acertos: 430
+Erros: 32
+Acurácia: 93.07%
+Perda média: 0.2187
+Tempo de avaliação: 26.09 segundos
+
+RESULTADOS POR CLASSE
+
+R$ 0,10: 88/91 acertos | Precisão: 84.62% | Recall: 96.70% | F1: 90.26%
+R$ 1,00: 91/92 acertos | Precisão: 100.00% | Recall: 98.91% | F1: 99.45%
+R$ 0,25: 90/92 acertos | Precisão: 95.74% | Recall: 97.83% | F1: 96.77%
+R$ 0,50: 88/97 acertos | Precisão: 97.78% | Recall: 90.72% | F1: 94.12%
+R$ 0,05: 73/90 acertos | Precisão: 87.95% | Recall: 81.11% | F1: 84.39%
+
+F1 macro: 93.00%

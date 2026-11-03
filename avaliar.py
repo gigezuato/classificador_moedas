@@ -9,10 +9,10 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
 
 
-PROJETO = Path('C:/Users/Heitor/GitHub/classificador_moedas/all').resolve().parent
-PASTA_MODELO = PROJETO / "modelo"
+PROJETO = Path(__file__).resolve().parent
+PASTA_MODELO = PROJETO / "modelo_ajustado"
 PASTA_TESTE = PROJETO / "dataset" / "teste"
-RESULTADOS = PROJETO / "resultados"
+RESULTADOS = PROJETO / "resultados_modelo_ajustado"
 
 
 def main():
