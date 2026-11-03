@@ -94,3 +94,79 @@ def processar_imagem(imagem, caminho_json):
     resultado[mascara > 0] = rgb[mascara > 0]
 
     return Image.fromarray(mascara), Image.fromarray(resultado)
+
+def processar_exemplos():
+    from PIL import ImageDraw
+
+    projeto = Path(__file__).resolve().parent
+    pasta_teste = projeto / "dataset" / "teste"
+    pasta_saida = projeto / "resultados_pdi"
+
+    anotacoes = sorted(pasta_teste.rglob("*.json"))
+
+    if not anotacoes:
+        print("Nenhuma anotação encontrada.")
+        return
+
+    sucessos = 0
+
+    for caminho_json in anotacoes:
+        try:
+            with caminho_json.open(encoding="utf-8") as arquivo:
+                dados = json.load(arquivo)
+
+            # Usa a foto indicada pela anotação na mesma pasta.
+            nome_foto = dados["imagePath"].replace("\\", "/").split("/")[-1]
+            caminho_foto = caminho_json.parent / nome_foto
+
+            with Image.open(caminho_foto) as arquivo:
+                original = arquivo.convert("RGB")
+                original.load()
+
+            mascara, isolada = processar_imagem(
+                original, caminho_json
+            )
+
+            destino = (
+                pasta_saida
+                / caminho_json.parent.name
+                / caminho_json.stem
+            )
+            destino.mkdir(parents=True, exist_ok=True)
+
+            original.save(destino / "original.png")
+            mascara.save(destino / "mascara.png")
+            isolada.save(destino / "moeda_isolada.png")
+
+            comparacao = Image.new("RGB", (960, 280), "white")
+            desenho = ImageDraw.Draw(comparacao)
+
+            etapas = [
+                ("Original", original),
+                ("Mascara", mascara.convert("RGB")),
+                ("Moeda isolada", isolada),
+            ]
+
+            for indice, (titulo, foto) in enumerate(etapas):
+                previa = foto.copy()
+                previa.thumbnail((320, 240))
+                x = indice * 320
+
+                desenho.text((x + 12, 12), titulo, fill="black")
+                comparacao.paste(previa, (x, 40))
+
+            comparacao.save(destino / "comparacao_pdi.png")
+            sucessos += 1
+            print(f"Gerado: {destino}")
+
+        except Exception as erro:
+            print(f"ERRO em {caminho_json.name}: {erro}")
+
+    print(
+        f"\nProcessamento concluído: "
+        f"{sucessos}/{len(anotacoes)} exemplos gerados."
+    )
+
+
+if __name__ == "__main__":
+    processar_exemplos()
