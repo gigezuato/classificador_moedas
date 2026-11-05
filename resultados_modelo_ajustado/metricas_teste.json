@@ -2,8 +2,8 @@
   "total": 462,
   "acertos": 430,
   "acuracia": 0.9307359307359307,
-  "perda_media": 0.2187235282564705,
-  "tempo_avaliacao_segundos": 26.094370799997705,
+  "perda_media": 0.21872352890154242,
+  "tempo_avaliacao_segundos": 7.558122999998886,
   "f1_macro": 0.9299897327200085,
   "por_classe": [
     {

@@ -5,7 +5,7 @@ Acertos: 430
 Erros: 32
 Acurácia: 93.07%
 Perda média: 0.2187
-Tempo de avaliação: 26.09 segundos
+Tempo de avaliação: 7.56 segundos
 
 RESULTADOS POR CLASSE
 
