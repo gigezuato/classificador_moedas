@@ -70,6 +70,13 @@ class Aplicacao(ctk.CTk):
             escala = 1.0
         largura = min(1180, int(self.winfo_screenwidth() / escala) - 60)
         altura = min(880, int(self.winfo_screenheight() / escala) - 110)
+
+        # Em telas menores (ou com escala do Windows acima de 100%), reduz
+        # proporcionalmente fontes, botões e espaçamentos para nada se sobrepor.
+        # Em telas grandes o fator é 1 e a interface fica igual à original.
+        fator = max(0.7, min(1.0, largura / 1180, altura / 880))
+        ctk.set_widget_scaling(fator)
+
         self.geometry(f"{largura}x{altura}")
         self.minsize(min(940, largura), min(680, altura))
         self.configure(fg_color=FUNDO)
